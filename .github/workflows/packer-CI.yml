@@ -1,0 +1,27 @@
+name: packer image Continous integration
+
+on: 
+  pull_request:
+    branches:
+      - main
+jobs:
+  validate-packer-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup `packer`
+      uses: hashicorp/packer@v1.7.4
+      id: setup
+      with:
+      version: 1.7.4
+    
+    - name: Run `packer init`
+        id: init
+        run: "packer init ./image.pkr.hcl"
+
+      - name: Run `packer validate`
+        id: validate
+        run: "packer validate ./image.pkr.hcl"
