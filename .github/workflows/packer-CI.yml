@@ -19,9 +19,9 @@ jobs:
       version: 1.7.4
     
     - name: Run `packer init`
-        id: init
-        run: "packer init ./image.pkr.hcl"
+      id: init
+      run: "packer init ./image.pkr.hcl"
 
-      - name: Run `packer validate`
-        id: validate
-        run: "packer validate ./image.pkr.hcl"
+    - name: Run `packer validate`
+      id: validate
+      run: "packer validate ./image.pkr.hcl"
