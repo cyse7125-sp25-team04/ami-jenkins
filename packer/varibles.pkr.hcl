@@ -4,7 +4,7 @@ variable region{
 }
 variable ami_users{
     type    = list(string)
-    default = [084375574962] // root user Account Id
+    default = ["418295703729`"] // root user Account Id
 }
 variable instance_type{
     type = string
@@ -17,7 +17,7 @@ variable source_ami{
 
 variable ssh_username{
     type = string
-    default = "ec2-user"
+    default = "ubuntu"
 }
 variable nginx_config_path{
     type = string

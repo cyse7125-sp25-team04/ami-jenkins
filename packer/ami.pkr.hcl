@@ -15,6 +15,7 @@ source "amazon-ebs" "ami-nginx-jenkins" {
     ami_users       = "${var.ami_users}"
     instance_type   = "${var.instance_type}"
     source_ami      = "${var.source_ami}"
+    profile         = "csye7125-root"
     ssh_username    = "${var.ssh_username}"
 }
 
