@@ -21,6 +21,7 @@ sudo apt-get update -y
 sudo apt-get install jenkins -y
 
 # Install  Let's Encrypt certbot
+sudo apt install certbot python3-certbot-nginx -y
 
 # Start Jenkins
 sudo systemctl enable jenkins
@@ -32,3 +33,33 @@ sudo mv /tmp/jenkins.conf /etc/nginx/conf.d/jenkins.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
+
+# Remove default Nginx configuration
+sudo rm /etc/nginx/sites-enabled/default
+
+
+# Create the Nginx site configuration for Jenkins
+echo "server {
+    listen 80;
+    server_name jenkins.example.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_redirect off;
+    }
+}" > /etc/nginx/sites-available/jenkins
+
+# Enable the site by creating a symbolic link
+sudo ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
+
+# Restart Nginx to apply changes
+sudo systemctl restart nginx
+
+echo "Jenkins Nginx configuration has been applied successfully."
+
+# Run Certbot (staging mode) to obtain an SSL certificate:
+sudo certbot --nginx --test-cert -d jenkins.csye7125.xyz
