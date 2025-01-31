@@ -29,8 +29,8 @@ build {
   }
 
   provisioner "file" {
-    source      = "./jenkins_plugins.txt"
-    destination = "./jenkins_plugins.txt"
+    source      = "jenkins_plugins.txt"
+    destination = "jenkins_plugins.txt"
   }
 
   provisioner "shell" {
