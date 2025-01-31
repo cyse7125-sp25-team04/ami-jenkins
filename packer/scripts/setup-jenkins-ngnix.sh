@@ -41,7 +41,7 @@ sudo rm /etc/nginx/sites-enabled/default
 # Create the Nginx site configuration for Jenkins
 echo "server {
     listen 80;
-    server_name jenkins.example.com;
+    server_name jenkins.csye7125.xyz;
 
     location / {
         proxy_pass http://127.0.0.1:8080;
