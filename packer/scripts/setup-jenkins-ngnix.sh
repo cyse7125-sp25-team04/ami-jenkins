@@ -29,12 +29,12 @@ while IFS= read -r plugin
 do
     echo "Installing plugin: $plugin..."
     sudo java -jar jenkins-plugin-manager-2.12.13.jar --war /usr/share/java/jenkins.war --plugin-download-directory /var/lib/jenkins/plugins --plugins "$plugin"
-done < /root/jenkins_plugins.txt
+done < /home/ubuntu/jenkins_plugins.txt
 EOF
 
 chmod +x jenkins_plugins.sh
 
-./jenkins_plugins.sh
+sudo ./jenkins_plugins.sh
 
 # Install  Let's Encrypt certbot
 # sudo apt install certbot python3-certbot-nginx -y
