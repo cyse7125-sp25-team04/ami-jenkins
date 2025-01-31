@@ -20,6 +20,22 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 sudo apt-get update -y
 sudo apt-get install jenkins -y
 
+# Setup jenkins plugins
+wget https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
+
+cat << 'EOF' > jenkins_plugins.sh
+#!/bin/bash
+while IFS= read -r plugin
+do
+    echo "Installing plugin: $plugin..."
+    sudo java -jar jenkins-plugin-manager-2.12.13.jar --war /usr/share/java/jenkins.war --plugin-download-directory /var/lib/jenkins/plugins --plugins "$plugin"
+done < /root/jenkins_plugins.txt
+EOF
+
+chmod +x jenkins_plugins.sh
+
+./jenkins_plugins.sh
+
 # Install  Let's Encrypt certbot
 # sudo apt install certbot python3-certbot-nginx -y
 sudo snap install --classic certbot
@@ -35,28 +51,6 @@ sudo mv /tmp/jenkins.conf /etc/nginx/conf.d/jenkins.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
-
-# Remove default Nginx configuration
-# sudo rm /etc/nginx/sites-enabled/default
-
-
-# # Create the Nginx site configuration for Jenkins
-# echo "server {
-#     listen 80;
-#     server_name jenkins.csye7125.xyz;
-
-#     location / {
-#         proxy_pass http://127.0.0.1:8080;
-#         proxy_set_header Host \$host;
-#         proxy_set_header X-Real-IP \$remote_addr;
-#         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-#         proxy_set_header X-Forwarded-Proto \$scheme;
-#         proxy_redirect off;
-#     }
-# }" > /etc/nginx/sites-available/jenkins
-
-# # Enable the site by creating a symbolic link
-# sudo ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
 
 # Restart Nginx to apply changes
 sudo systemctl restart nginx

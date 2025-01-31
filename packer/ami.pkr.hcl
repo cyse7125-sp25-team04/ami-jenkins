@@ -28,6 +28,11 @@ build {
     destination = "/tmp/jenkins.conf"
   }
 
+  provisioner "file" {
+    source      = "jenkins_plugins.txt"
+    destination = "jenkins_plugins.txt"
+  }
+
   provisioner "shell" {
     script = "./scripts/setup-jenkins-ngnix.sh"
   }
