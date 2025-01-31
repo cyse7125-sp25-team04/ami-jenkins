@@ -24,6 +24,12 @@ jobs:
         cd packer
         packer init .
 
+    - name: packer check format
+      id: check-format
+      run: |
+        cd packer
+        packer fmt -check .
+
     - name: Run `packer validate`
       id: validate
       run: |

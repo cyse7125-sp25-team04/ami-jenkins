@@ -33,6 +33,12 @@ jobs:
           cd packer
           packer validate .
 
+      - name: packer check format
+        id: check-format
+        run: |
+          cd packer
+          packer fmt -check .
+
       - name: Run `packer build`
         id: build
         run: |
