@@ -33,6 +33,17 @@ build {
     destination = "jenkins_plugins.txt"
   }
 
+  provisioner "file" {
+    source      = "${var.inital_jenkins_setup_path}"
+    destination = "/tmp/initial-setup.groovy"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",
+      "echo 'ADMIN_PASSWORD=${var.jenkins_admin_password}' | sudo tee -a /etc/jenkins.env"
+    ]
+  }
   provisioner "shell" {
     script = "./scripts/setup-jenkins-ngnix.sh"
   }

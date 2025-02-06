@@ -1,4 +1,5 @@
 #!/bin/bash
+# set -ex # Exit on any command failure
 sudo apt-get upgrade -y
 sudo apt-get update -y
 
@@ -35,6 +36,11 @@ EOF
 chmod +x jenkins_plugins.sh
 
 sudo ./jenkins_plugins.sh
+
+# setup jenkins scripts
+sudo mkdir -p /var/lib/jenkins/init.groovy.d/
+sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
+sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
 
 # Install  Let's Encrypt certbot
 # sudo apt install certbot python3-certbot-nginx -y
