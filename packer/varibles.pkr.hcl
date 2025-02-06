@@ -23,3 +23,17 @@ variable nginx_config_path {
   type    = string
   default = "../nginx/jenkins.conf"
 }
+variable inital_jenkins_setup_path {
+  type    = string
+  default = "../jenkins_scripts/setup/initial-setup.groovy"
+}
+
+variable jenkins_admin_id {
+  type    = string
+  default = "admin"
+}
+
+variable jenkins_admin_password {
+  type    = string
+  default = "admin"
+}
