@@ -29,6 +29,11 @@ build {
   }
 
   provisioner "file" {
+    source      = "../jenkins/configuration/JCasC.yaml"
+    destination = "/tmp/JCasC.yaml"
+  }
+
+  provisioner "file" {
     source      = "jenkins_plugins.txt"
     destination = "jenkins_plugins.txt"
   }
