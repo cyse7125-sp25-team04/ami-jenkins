@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -ex # Exit on any command failure
+set -ex # Exit on any command failure
 sudo apt-get upgrade -y
 sudo apt-get update -y
 
@@ -21,45 +21,58 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 sudo apt-get update -y
 sudo apt-get install jenkins -y
 
-# Setup jenkins plugins
-wget https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
-
-cat << 'EOF' > jenkins_plugins.sh
-#!/bin/bash
-while IFS= read -r plugin
-do
-    echo "Installing plugin: $plugin..."
-    sudo java -jar jenkins-plugin-manager-2.12.13.jar --war /usr/share/java/jenkins.war --plugin-download-directory /var/lib/jenkins/plugins --plugins "$plugin"
-done < /home/ubuntu/jenkins_plugins.txt
-EOF
-
-chmod +x jenkins_plugins.sh
-
-sudo ./jenkins_plugins.sh
-
-# setup jenkins scripts
-sudo mkdir -p /var/lib/jenkins/init.groovy.d/
-sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
-sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
-
-# Install  Let's Encrypt certbot
-# sudo apt install certbot python3-certbot-nginx -y
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-
-# Start Jenkins
-sudo systemctl enable jenkins
-sudo systemctl start jenkins
-sudo systemctl status jenkins
-
 # Change nginx config and restart nginx to setup reverse proxy for jenkins
 sudo mv /tmp/jenkins.conf /etc/nginx/conf.d/jenkins.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
 
-# Restart Nginx to apply changes
-sudo systemctl restart nginx
+# # Setup jenkins plugins
+# wget https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
+
+# cat << 'EOF' > jenkins_plugins.sh
+# #!/bin/bash
+# while IFS= read -r plugin
+# do
+#     echo "Installing plugin: $plugin..."
+#     sudo java -jar jenkins-plugin-manager-2.12.13.jar --war /usr/share/java/jenkins.war --plugin-download-directory /var/lib/jenkins/plugins --plugins "$plugin"
+# done < /home/ubuntu/jenkins_plugins.txt
+# EOF
+
+# chmod +x jenkins_plugins.sh
+
+# sudo ./jenkins_plugins.sh
+
+# setup jenkins scripts
+sudo mkdir -p /var/lib/jenkins/init.groovy.d/
+sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
+sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
+
+
+
+sudo mkdir -p /var/lib/jenkins/casc_configs
+sudo mv /tmp/JCasC.yaml /var/lib/jenkins/casc_configs/
+sudo chown -R jenkins:jenkins /var/lib/jenkins/casc_configs
+
+# update the default jenkins config file path
+echo 'CASC_JENKINS_CONFIG=/var/lib/jenkins/casc_configs/JCasC.yaml' | sudo tee -a /etc/environment
+source /etc/environment
+
+sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
+sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc_configs/JCasC.yaml"' /lib/systemd/system/jenkins.service
+
+# Restart Jenkins
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+sudo journalctl -u jenkins --no-pager | tail -n 100
+# sudo systemctl restart jenkins
+
+# Install  Let's Encrypt certbot
+# sudo apt install certbot python3-certbot-nginx -y
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+
 
 echo "Jenkins Nginx configuration has been applied successfully."
 

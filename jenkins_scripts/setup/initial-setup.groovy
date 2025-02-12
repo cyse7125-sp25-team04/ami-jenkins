@@ -6,10 +6,12 @@ import jenkins.install.*
 
 import java.util.Properties
 
+import hudson.model.RestartListener
+
 
 // Get the Jenkins instance
 
-def instance = Jenkins.getInstance()
+def instance = Jenkins.get()
 
 
 // Load environment variables from the properties file
@@ -65,12 +67,57 @@ def state = instance.getInstallState()
 
 if (state != InstallState.RUNNING) {
 
-    //InstallState.initializeState()
-
-    //InstallState.RUNNING.initializeState()
-
-    InstallState.INITIAL_SETUP_COMPLETED.initializeState()
+    instance.setInstallState(InstallState.RUNNING)
 
 }
 
+def plugins = ["git", "workflow-aggregator", "pipeline-utility-steps", "github", "github-api", "configuration-as-code", "job-dsl", "github-branch-source", "multibranch-scan-webhook-trigger"]
+
+def pm = instance.getPluginManager()
+def uc = instance.getUpdateCenter()
+
+println "--> Updating update center"
+uc.updateAllSites()
+
+println "--> Installing missing plugins"
+plugins.each {
+    if (!pm.getPlugin(it)) {
+        def plugin = uc.getPlugin(it)
+        if (plugin) {
+            println "--> Installing plugin: $it"
+            plugin.deploy()
+        } else {
+            println "--> Plugin $it not found in update center"
+        }
+    }
+}
+
 instance.save()
+while (uc.isRestartRequiredForCompletion()) {
+    println "-->Waiting for plugins to complete installation..."
+    sleep(10000)  // Check every 10 seconds
+}
+
+// println "--> Preparing to restart Jenkins"
+// // instance.safeRestart() // making sure restart happening after plugins installed.
+// Jenkins.instance.doQuietDown() // Prevent new jobs from starting
+
+// Thread.start {
+//     println "-->Jenkins safe restart initiated."
+//     while (true) {
+//         if (Jenkins.instance.isQuietingDown()) {
+//             if (RestartListener.isAllReady()) {
+//                 println "-->All jobs completed. Restarting Jenkins now."
+//                 Jenkins.instance.restart()
+//                 break
+//             }
+//             println "-->Jobs still running. Retrying in 30 seconds..."
+//             sleep(60000)  // Wait before retrying restart
+//         } else {
+//             println "-->Shutdown mode not enabled. Restart aborted."
+//             break
+//         }
+//     }
+// }
+
+println 'A safe restart has been scheduled. Check Jenkins logs for updates.'
