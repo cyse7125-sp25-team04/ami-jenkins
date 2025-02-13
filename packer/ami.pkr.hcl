@@ -43,6 +43,11 @@ build {
     destination = "/tmp/initial-setup.groovy"
   }
 
+  provisioner "file" {
+    source      = "${var.infra_status_check_path}"
+    destination = "/tmp/infra-status-check.groovy"
+  }
+
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",

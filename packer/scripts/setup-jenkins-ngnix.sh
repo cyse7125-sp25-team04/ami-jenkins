@@ -26,6 +26,12 @@ sudo mv /tmp/jenkins.conf /etc/nginx/conf.d/jenkins.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
+sudo systemctl start jenkins
+
+# Install Terraform 
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform -y
 
 # # Setup jenkins plugins
 # wget https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.12.13/jenkins-plugin-manager-2.12.13.jar
@@ -46,13 +52,15 @@ sudo systemctl status nginx
 # setup jenkins scripts
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
 sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
-sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
 
+#copy job scripts
+sudo mkdir -p /var/lib/jenkins/jobs/
+sudo mv /tmp/infra-status-check.groovy /var/lib/jenkins/jobs/
 
-
+# Update JCasC.yaml
 sudo mkdir -p /var/lib/jenkins/casc_configs
 sudo mv /tmp/JCasC.yaml /var/lib/jenkins/casc_configs/
-sudo chown -R jenkins:jenkins /var/lib/jenkins/casc_configs
+sudo chown -R jenkins:jenkins /var/lib/jenkins/
 
 # update the default jenkins config file path
 echo 'CASC_JENKINS_CONFIG=/var/lib/jenkins/casc_configs/JCasC.yaml' | sudo tee -a /etc/environment
