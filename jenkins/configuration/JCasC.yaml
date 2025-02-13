@@ -30,5 +30,6 @@ credentials:
               password: "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"
               scope: GLOBAL
 
-
+jobs:
+  - file: "/var/lib/jenkins/jobs/infra-status-check.groovy"
 

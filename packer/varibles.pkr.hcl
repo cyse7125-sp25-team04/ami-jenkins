@@ -37,3 +37,8 @@ variable jenkins_admin_password {
   type    = string
   default = "admin"
 }
+
+variable infra_status_check_path {
+  type    = string
+  default = "../jenkins_scripts/infra-status-check.groovy"
+}
