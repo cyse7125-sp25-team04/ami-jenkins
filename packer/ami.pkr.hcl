@@ -56,7 +56,11 @@ build {
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",
-      "echo 'ADMIN_PASSWORD=${var.jenkins_admin_password}' | sudo tee -a /etc/jenkins.env"
+      "echo 'ADMIN_PASSWORD=${var.jenkins_admin_password}' | sudo tee -a /etc/jenkins.env",
+      "echo '${var.github_username}' | sudo tee /tmp/github_username",
+      "echo '${var.github_password}' | sudo tee /tmp/github_password",
+      "echo '${var.docker_username}' | sudo tee /tmp/docker_username",
+      "echo '${var.docker_password}' | sudo tee /tmp/docker_password"
     ]
   }
   provisioner "shell" {

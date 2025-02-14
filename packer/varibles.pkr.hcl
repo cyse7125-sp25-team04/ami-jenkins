@@ -47,3 +47,21 @@ variable static_site_image_path {
   type    = string
   default = "../jenkins_scripts/jobs/static-site-image.groovy"
 }
+
+variable github_username {
+  type    = string
+  default = "sri-vijay-kalki"
+}
+
+variable github_password {
+  type = string
+}
+
+variable docker_username {
+  type    = string
+  default = "csye712504"
+}
+
+variable docker_password {
+  type = string
+}

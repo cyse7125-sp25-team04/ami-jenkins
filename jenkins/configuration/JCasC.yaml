@@ -6,7 +6,7 @@ jenkins:
       allowsSignup: false
       users:
         - id: "admin1"
-          password: "admin1"
+          password: "${admin_password}"
 
   mode: NORMAL
   
@@ -26,14 +26,14 @@ credentials:
           - usernamePassword:
               id: "git-credentials"
               description: "GitHub Credentials"
-              username: "sri-vijay-kalki"
-              password: "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"
+              username: "${file:///var/lib/jenkins/secrets/github_username}"
+              password: "${file:///var/lib/jenkins/secrets/github_password}"
               scope: GLOBAL
           - usernamePassword:
               id: "docker-credentials"
               description: "Docker Credentials"
-              username: "csye712504"
-              password: "dckr_pat_aTA_e8or5tJHqCmGROcEG246stE"
+              username: "${file:///var/lib/jenkins/secrets/docker_username}"
+              password: "${file:///var/lib/jenkins/secrets/docker_password}"
               scope: GLOBAL
 
 jobs:
