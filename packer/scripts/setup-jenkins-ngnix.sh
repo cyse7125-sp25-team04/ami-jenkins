@@ -57,6 +57,13 @@ sudo apt update && sudo apt install terraform -y
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
 sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
 
+# Copy secrets
+sudo mkdir -p /var/lib/jenkins/secrets/
+sudo mv /tmp/github_username /var/lib/jenkins/secrets/
+sudo mv /tmp/github_password /var/lib/jenkins/secrets/
+sudo mv /tmp/docker_username /var/lib/jenkins/secrets/
+sudo mv /tmp/docker_password /var/lib/jenkins/secrets/
+
 #copy job scripts
 sudo mkdir -p /var/lib/jenkins/jobs/
 sudo mv /tmp/infra-status-check.groovy /var/lib/jenkins/jobs/
