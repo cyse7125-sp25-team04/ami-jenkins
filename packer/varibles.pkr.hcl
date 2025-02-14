@@ -40,5 +40,10 @@ variable jenkins_admin_password {
 
 variable infra_status_check_path {
   type    = string
-  default = "../jenkins_scripts/infra-status-check.groovy"
+  default = "../jenkins_scripts/jobs/infra-status-check.groovy"
+}
+
+variable static_site_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/static-site-image.groovy"
 }

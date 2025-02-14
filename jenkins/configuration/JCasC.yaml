@@ -29,7 +29,14 @@ credentials:
               username: "sri-vijay-kalki"
               password: "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"
               scope: GLOBAL
+          - usernamePassword:
+              id: "docker-credentials"
+              description: "Docker Credentials"
+              username: "csye712504"
+              password: "dckr_pat_aTA_e8or5tJHqCmGROcEG246stE"
+              scope: GLOBAL
 
 jobs:
   - file: "/var/lib/jenkins/jobs/infra-status-check.groovy"
+  - file: "/var/lib/jenkins/jobs/static-site-image.groovy"
 

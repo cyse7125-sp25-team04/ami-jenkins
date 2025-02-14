@@ -48,6 +48,11 @@ build {
     destination = "/tmp/infra-status-check.groovy"
   }
 
+  provisioner "file" {
+    source      = "${var.static_site_image_path}"
+    destination = "/tmp/static-site-image.groovy"
+  }
+
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",

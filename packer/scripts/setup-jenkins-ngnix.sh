@@ -21,12 +21,16 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 sudo apt-get update -y
 sudo apt-get install jenkins -y
 
+# Set up Jenkins service
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+sudo systemctl status jenkins
+
 # Change nginx config and restart nginx to setup reverse proxy for jenkins
 sudo mv /tmp/jenkins.conf /etc/nginx/conf.d/jenkins.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
-sudo systemctl start jenkins
 
 # Install Terraform 
 wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
@@ -56,6 +60,7 @@ sudo mv /tmp/initial-setup.groovy /var/lib/jenkins/init.groovy.d/
 #copy job scripts
 sudo mkdir -p /var/lib/jenkins/jobs/
 sudo mv /tmp/infra-status-check.groovy /var/lib/jenkins/jobs/
+sudo mv /tmp/static-site-image.groovy /var/lib/jenkins/jobs/
 
 # Update JCasC.yaml
 sudo mkdir -p /var/lib/jenkins/casc_configs
@@ -80,6 +85,27 @@ sudo journalctl -u jenkins --no-pager | tail -n 100
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
+# Install Docker
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo systemctl enable docker
+sudo systemctl start docker
+
+#Add the Jenkins user to docker group. this will allow jenkins to run docker commands without sudo
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
 
 
 echo "Jenkins Nginx configuration has been applied successfully."
