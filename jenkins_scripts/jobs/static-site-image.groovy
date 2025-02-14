@@ -1,4 +1,4 @@
-multibranchPipelineJob('infra-gcp-status-check') {
+multibranchPipelineJob('static-site-image-build') {
     branchSources {
         github {
             id('2')
