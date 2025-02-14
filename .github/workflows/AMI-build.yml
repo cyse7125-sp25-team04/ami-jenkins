@@ -31,7 +31,7 @@ jobs:
         id: validate
         run: |
           cd packer
-          packer validate .
+          packer validate -var "github_password={{secrets.GH_PASSWORD}}" -var "docker_password={{secrets.DOCKER_PASSWORD}}" .
 
       - name: packer check format
         id: check-format
@@ -43,7 +43,7 @@ jobs:
         id: build
         run: |
           cd packer
-          packer build .
+          packer build -var "github_password={{secrets.GH_PASSWORD}}" -var "docker_password={{secrets.DOCKER_PASSWORD}}" .
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

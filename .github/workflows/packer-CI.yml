@@ -34,4 +34,4 @@ jobs:
       id: validate
       run: |
         cd packer
-        packer validate .
+        packer validate -var "github_password={{secrets.GH_PASSWORD}}" -var "docker_password={{secrets.DOCKER_PASSWORD}}" .
