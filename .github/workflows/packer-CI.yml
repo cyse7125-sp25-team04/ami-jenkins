@@ -11,7 +11,7 @@ jobs:
     env:
       GITHUB_PASSWORD: ${{ secrets.GH_PASSWORD }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -38,4 +38,5 @@ jobs:
       id: validate
       run: |
         cd packer
+        echo "github_password=$GITHUB_PASSWORD"
         packer validate -var "github_password=$GITHUB_PASSWORD" -var "docker_password=$DOCKER_PASSWORD" .

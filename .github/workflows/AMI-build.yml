@@ -35,6 +35,7 @@ jobs:
         id: validate
         run: |
           cd packer
+          echo "github_password=$GITHUB_PASSWORD"
           packer validate -var "github_password=$GITHUB_PASSWORD" -var "docker_password=$DOCKER_PASSWORD" .
 
       - name: packer check format
