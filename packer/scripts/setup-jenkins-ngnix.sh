@@ -68,6 +68,7 @@ sudo mv /tmp/docker_password /var/lib/jenkins/secrets/
 sudo mkdir -p /var/lib/jenkins/jobs/
 sudo mv /tmp/infra-status-check.groovy /var/lib/jenkins/jobs/
 sudo mv /tmp/static-site-image.groovy /var/lib/jenkins/jobs/
+sudo mv /tmp/pr-commit-validation-check.groovy /var/lib/jenkins/jobs/
 
 # Update JCasC.yaml
 sudo mkdir -p /var/lib/jenkins/casc_configs
