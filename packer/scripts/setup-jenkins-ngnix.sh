@@ -117,3 +117,4 @@ sudo systemctl restart jenkins
 
 echo "Jenkins Nginx configuration has been applied successfully."
 
+
