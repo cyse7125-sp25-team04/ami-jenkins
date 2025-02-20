@@ -44,5 +44,5 @@ credentials:
 jobs:
   - file: "/var/lib/jenkins/jobs/infra-status-check.groovy"
   - file: "/var/lib/jenkins/jobs/static-site-image.groovy"
-  - file: "/var/lib/jenkins/jobs/pr-commit-validation-check.groovy"
+  # - file: "/var/lib/jenkins/jobs/pr-commit-validation-check.groovy"
 

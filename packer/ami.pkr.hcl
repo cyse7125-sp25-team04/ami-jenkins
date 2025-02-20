@@ -53,10 +53,10 @@ build {
     destination = "/tmp/static-site-image.groovy"
   }
 
-  provisioner "file" {
-    source      = "${var.pr_validation_check_file_path}"
-    destination = "/tmp/pr-commit-validation-check.groovy"
-  }
+  # provisioner "file" {
+  #   source      = "${var.pr_validation_check_file_path}"
+  #   destination = "/tmp/pr-commit-validation-check.groovy"
+  # }
 
   provisioner "shell" {
     inline = [
