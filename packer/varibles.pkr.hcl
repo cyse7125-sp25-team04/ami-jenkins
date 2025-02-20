@@ -48,6 +48,11 @@ variable static_site_image_path {
   default = "../jenkins_scripts/jobs/static-site-image.groovy"
 }
 
+variable static_site_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/pr-commit-validation-check.groovy"
+}
+
 variable github_username {
   type    = string
   default = "sri-vijay-kalki"
