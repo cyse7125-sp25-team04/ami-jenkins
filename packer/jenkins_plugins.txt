@@ -40,3 +40,4 @@ docker-plugin:latest
 docker-java-api:latest
 docker-commons:latest
 docker-build-step:latest
+conventional-commits:latest

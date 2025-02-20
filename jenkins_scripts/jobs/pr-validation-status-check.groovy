@@ -1,4 +1,4 @@
-organizationFolder('pr-commit-validation-check.groovy') {
+organizationFolder('pr-commit-validation-check') {
     description('Manages repositories and branches for the organization')
     
     organizations {

@@ -71,7 +71,7 @@ if (state != InstallState.RUNNING) {
 
 }
 
-def plugins = ["git", "workflow-aggregator", "pipeline-utility-steps", "github", "github-api", "configuration-as-code", "job-dsl", "github-branch-source", "multibranch-scan-webhook-trigger"]
+def plugins = ["git", "workflow-aggregator", "pipeline-utility-steps", "github", "github-api", "configuration-as-code", "job-dsl", "github-branch-source", "multibranch-scan-webhook-trigger", "conventional-commits"]
 
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()
