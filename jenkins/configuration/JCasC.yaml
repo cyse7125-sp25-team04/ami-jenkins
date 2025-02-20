@@ -35,11 +35,11 @@ credentials:
               username: "${file:///var/lib/jenkins/secrets/docker_username}"
               password: "${file:///var/lib/jenkins/secrets/docker_password}"
               scope: GLOBAL
-          - string:
-              scope: GLOBAL
-              id: "shalom-PAT"
-              secret: "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"
-              description: "PAT token for Jenkins to authenticate with Github to post pipeline status."
+          # - string:
+          #     scope: GLOBAL
+          #     id: "shalom-PAT"
+          #     secret: "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"
+          #     description: "PAT token for Jenkins to authenticate with Github to post pipeline status."
 
 jobs:
   - file: "/var/lib/jenkins/jobs/infra-status-check.groovy"
