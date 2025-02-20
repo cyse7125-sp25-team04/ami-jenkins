@@ -37,7 +37,7 @@ credentials:
               scope: GLOBAL
           - string:
               scope: GLOBAL
-              id: shalom-PAT
+              id: "shalom-PAT"
               secret: "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"
               description: "PAT token for Jenkins to authenticate with Github to post pipeline status."
 
