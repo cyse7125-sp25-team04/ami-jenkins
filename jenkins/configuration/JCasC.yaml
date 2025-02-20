@@ -27,7 +27,8 @@ credentials:
               id: "git-credentials"
               description: "GitHub Credentials"
               username: "${file:///var/lib/jenkins/secrets/github_username}"
-              password: "${file:///var/lib/jenkins/secrets/github_password}"
+              password: "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"
+              # password: "${file:///var/lib/jenkins/secrets/github_password}"
               scope: GLOBAL
           - usernamePassword:
               id: "docker-credentials"
