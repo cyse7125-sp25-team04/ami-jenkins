@@ -48,10 +48,10 @@ variable static_site_image_path {
   default = "../jenkins_scripts/jobs/static-site-image.groovy"
 }
 
-variable pr_validation_check_file_path {
-  type    = string
-  default = "../jenkins_scripts/jobs/pr-commit-validation-check.groovy"
-}
+# variable pr_validation_check_file_path {
+#   type    = string
+#   default = "../jenkins_scripts/jobs/pr-commit-validation-check.groovy"
+# }
 
 variable github_username {
   type    = string
