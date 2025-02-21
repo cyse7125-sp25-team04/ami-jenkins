@@ -58,6 +58,15 @@ build {
     destination = "/tmp/pr-validation-status-check.groovy"
   }
 
+  provisioner "file" {
+    source      = "${var.db_build_image_path}"
+    destination = "/tmp/db-build-image.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.webapp_build_image_path}"
+    destination = "/tmp/build-go-application-image.groovy"
+  }
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",

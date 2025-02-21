@@ -1,9 +1,9 @@
-multibranchPipelineJob('static-site-image-build') {
+multibranchPipelineJob('build-db-image') {
     branchSources {
         github {
-            id('2')
+            id('4')
             repoOwner('cyse7125-sp25-team04')
-            repository('static-site')
+            repository('database-migration')
             buildForkPRHead(false)
             buildForkPRMerge(false)
             buildOriginBranchWithPR(false)
@@ -14,7 +14,7 @@ multibranchPipelineJob('static-site-image-build') {
     configure { node ->
         def webhookTrigger = node / triggers / 'com.igalg.jenkins.plugins.mswt.trigger.ComputedFolderWebHookTrigger' {
             spec('')
-            token("static-site")
+            token("flyway")
         }
     }
     factory {

@@ -48,6 +48,16 @@ variable static_site_image_path {
   default = "../jenkins_scripts/jobs/static-site-image.groovy"
 }
 
+variable db_build_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/db-build-image.groovy"
+}
+
+variable webapp_build_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/build-go-application-image.groovy"
+}
+
 variable pr_check_file_path {
   type    = string
   default = "../jenkins_scripts/jobs/pr-validation-status-check.groovy"
