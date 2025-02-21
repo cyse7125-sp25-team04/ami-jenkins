@@ -57,6 +57,14 @@ build {
     source      = "${var.pr_check_file_path}"
     destination = "/tmp/pr-validation-status-check.groovy"
   }
+  provisioner "file" {
+    source      = "${var.build_go_application_image_path}"
+    destination = "/tmp/build-go-application-image.groovy"
+  }
+  provisioner "file" {
+    source      = "${var.build_flyway_processor_image_path}"
+    destination = "/tmp/build-flyway-processor-image.groovy"
+  }
 
   provisioner "shell" {
     inline = [

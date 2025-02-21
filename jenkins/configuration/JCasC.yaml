@@ -45,3 +45,5 @@ jobs:
   - file: "/var/lib/jenkins/jobs/infra-status-check.groovy"
   - file: "/var/lib/jenkins/jobs/static-site-image.groovy"
   - file: "/var/lib/jenkins/jobs/pr-validation-status-check.groovy"
+  - file: "/var/lib/jenkins/jobs/build-go-application-image.groovy"
+  - file: "/var/lib/jenkins/jobs/build-flyway-processor-image.groovy"

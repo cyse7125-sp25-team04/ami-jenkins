@@ -53,6 +53,16 @@ variable pr_check_file_path {
   default = "../jenkins_scripts/jobs/pr-validation-status-check.groovy"
 }
 
+variable build_go_application_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/build-go-application-image.groovy"
+}
+
+variable build_flyway_processor_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/build-flyway-processor-image.groovy"
+}
+
 variable github_username {
   type    = string
   default = "sri-vijay-kalki"
