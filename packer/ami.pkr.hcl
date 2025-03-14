@@ -66,6 +66,11 @@ build {
     destination = "/tmp/build-flyway-processor-image.groovy"
   }
 
+  provisioner "file" {
+    source      = "${var.build_api_server_path}"
+    destination = "/tmp/build-api-server.groovy"
+  }
+
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",

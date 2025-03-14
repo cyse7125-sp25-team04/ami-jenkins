@@ -71,6 +71,7 @@ sudo mv /tmp/static-site-image.groovy /var/lib/jenkins/jobs/
 sudo mv /tmp/pr-validation-status-check.groovy /var/lib/jenkins/jobs/
 sudo mv /tmp/build-go-application-image.groovy /var/lib/jenkins/jobs/
 sudo mv /tmp/build-flyway-processor-image.groovy /var/lib/jenkins/jobs/
+sudo mv /tmp/build-api-server.groovy /var/lib/jenkins/jobs/
 
 # Update JCasC.yaml
 sudo mkdir -p /var/lib/jenkins/casc_configs
