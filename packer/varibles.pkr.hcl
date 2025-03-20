@@ -68,6 +68,11 @@ variable build_api_server_path {
   default = "../jenkins_scripts/jobs/build-api-server.groovy"
 }
 
+variable build_k8s_operator_image_path {
+  type    = string
+  default = "../jenkins_scripts/jobs/build-k8s-operator-image.groovy"
+}
+
 variable github_username {
   type    = string
   default = "sri-vijay-kalki"
