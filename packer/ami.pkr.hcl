@@ -71,6 +71,11 @@ build {
     destination = "/tmp/build-api-server.groovy"
   }
 
+  provisioner "file" {
+    source      = "${var.build_k8s_operator_image_path}"
+    destination = "/tmp/build-k8s-operator-image.groovy"
+  }
+
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.jenkins_admin_id}' | sudo tee /etc/jenkins.env",

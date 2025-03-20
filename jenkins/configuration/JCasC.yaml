@@ -48,3 +48,4 @@ jobs:
   - file: "/var/lib/jenkins/jobs/build-go-application-image.groovy"
   - file: "/var/lib/jenkins/jobs/build-flyway-processor-image.groovy"
   - file: "/var/lib/jenkins/jobs/build-api-server.groovy"
+  - file: "/var/lib/jenkins/jobs/build-k8s-operator-image.groovy"
